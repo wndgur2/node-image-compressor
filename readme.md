@@ -1,36 +1,31 @@
-## 타 프로젝트에 이식하기
+## Node에서 사용 가능한 image 압축 라이브러리 세 가지가 있습니다.
 
-### 의존성이 3개입니다.
+1. [webp-converter](https://www.npmjs.com/package/webp-converter)
+2. [compress-images](https://www.npmjs.com/package/compress-images)
+3. [imagemin](https://www.npmjs.com/package/imagemin)
 
-```
-npm i compress-images pngquant-bin@6.0.1 gifsicle@5.2.1
-```
+## 특징은 아래와 같습니다.
 
-### 사용법 (app.js)
+webp-converter
 
-```javascript
-let compress_images = require('compress-images'),
-  INPUT_path_to_your_images,
-  OUTPUT_path
+- commonjs 방식 (require('webp-converter')) 사용
+- 1/10 수준 압축률
 
-INPUT_path_to_your_images = 'src/img/**/*.{jpg,JPG,jpeg,JPEG,png,svg,gif}'
-OUTPUT_path = 'build/img/'
+- 가장 높은 압축률을 자랑합니다.
+- 타이젠의 web엔진에서 webp를 지원한다고 합니다. (랜더링 가능하다고 합니다.)
+  https://docs.tizen.org/platform/release-notes/tizen-6-0-m2/
 
-compress_images(
-  INPUT_path_to_your_images,
-  OUTPUT_path,
-  { compress_force: false, statistic: true, autoupdate: true },
-  false,
-  { jpg: { engine: 'mozjpeg', command: ['-quality', '60'] } },
-  { png: { engine: 'pngquant', command: ['--quality=20-50', '-o'] } },
-  { svg: { engine: 'svgo', command: '--multipass' } },
-  { gif: { engine: 'gifsicle', command: ['--colors', '64', '--use-col=web'] } },
-  function (error, completed, statistic) {
-    console.log('-------------')
-    console.log(error)
-    console.log(completed)
-    console.log(statistic)
-    console.log('-------------')
-  }
-)
-```
+compress-images
+
+- commonjs 방식 (require('compress-images')) 사용
+- 1/4 수준 압축률
+
+imagemin
+
+- ES6 방식 (import compress_images from 'compress-images') 사용
+- 더 쉬운 코드
+- 1/4 수준 압축률
+
+## 사용법
+
+modules의 각 라이브러리의 코드를 참고하세요.
